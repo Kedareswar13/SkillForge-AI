@@ -1,0 +1,53 @@
+/* Shared form page styles */
+.form-card { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.form-error {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px; border-radius: var(--radius-md);
+  background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+  color: var(--error); font-size: 0.85rem;
+}
+
+/* Drop Zone */
+.drop-zone {
+  border: 2px dashed var(--border); border-radius: var(--radius-lg);
+  padding: 48px 24px; text-align: center; cursor: pointer;
+  transition: all 0.3s ease; position: relative;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--indigo); background: rgba(99,102,241,0.05);
+}
+.drop-zone.has-file { border-color: var(--success); border-style: solid; }
+.drop-content { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.drop-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(99,102,241,0.1); display: flex; align-items: center; justify-content: center;
+  color: var(--indigo); margin-bottom: 8px;
+}
+.file-selected { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.file-icon { color: var(--success); }
+.file-name { font-weight: 600; font-size: 1rem; }
+.remove-file {
+  position: absolute; top: 12px; right: 12px;
+  background: var(--bg-hover); border: none; color: var(--text-muted);
+  width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* Mode Tabs */
+.mode-tabs { display: flex; gap: 8px; }
+.mode-tab {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-md);
+  background: var(--bg-secondary); color: var(--text-muted); cursor: pointer;
+  font-size: 0.85rem; font-weight: 500; transition: all 0.25s;
+}
+.mode-tab:hover { border-color: var(--indigo); color: var(--text-primary); }
+.mode-tab.active { border-color: var(--indigo); color: var(--indigo-light); background: rgba(99,102,241,0.1); }
+
+/* Results */
+.result-card { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+.result-header { display: flex; align-items: center; gap: 12px; }
+.success-icon { color: var(--success); }
+.result-skills h3 { font-size: 0.95rem; margin-bottom: 10px; color: var(--text-secondary); }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.role-type { font-size: 1rem; color: var(--text-secondary); }

@@ -1,0 +1,33 @@
+.analysis-results { max-width: 900px; margin: 0 auto; }
+.readiness-banner { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+.readiness-circle { position: relative; width: 120px; height: 120px; flex-shrink: 0; }
+.readiness-circle svg { width: 100%; height: 100%; }
+.readiness-pct {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 1.6rem; font-weight: 800;
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+/* Fallback: if gradient text doesn't render, show solid color */
+@supports not (background-clip: text) {
+  .readiness-pct {
+    background: none;
+    -webkit-text-fill-color: unset;
+    color: var(--indigo);
+  }
+}
+.gap-sections { margin-bottom: 24px; }
+.gap-section h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.95rem; }
+.text-success { color: var(--success); }
+.text-warning { color: var(--warning); }
+.text-error { color: var(--error); }
+.recommendations { margin-bottom: 24px; }
+.recommendations h3 { margin-bottom: 12px; }
+.recommendations ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.recommendations li {
+  padding: 10px 16px; background: var(--bg-secondary); border-radius: var(--radius-md);
+  border-left: 3px solid var(--indigo); font-size: 0.9rem; color: var(--text-secondary);
+}

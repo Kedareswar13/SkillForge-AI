@@ -1,0 +1,165 @@
+/* Roadmap Flow Layout */
+.roadmap-flow { max-width: 720px; margin: 0 auto; }
+
+/* Overview Stats */
+.roadmap-overview { text-align: center; margin-bottom: 24px; }
+.roadmap-overview-stats {
+  display: flex; justify-content: center; gap: 40px; margin-bottom: 16px;
+}
+.overview-stat { display: flex; flex-direction: column; align-items: center; }
+.overview-num {
+  font-size: 1.6rem; font-weight: 800;
+  background: var(--gradient-brand); -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; background-clip: text;
+  color: transparent;
+}
+
+/* Flow Graph */
+.flow-graph {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; padding: 8px 0;
+}
+
+/* Start / End Nodes */
+.flow-start-node, .flow-end-node {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 24px; border-radius: 999px;
+  font-weight: 600; font-size: 0.9rem;
+}
+.flow-start-node {
+  background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(20,184,166,0.12));
+  border: 1px solid rgba(99,102,241,0.25);
+  color: var(--indigo);
+}
+.flow-start-icon, .flow-end-icon {
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.flow-start-icon { background: var(--indigo); color: white; }
+.flow-end-node {
+  background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(20,184,166,0.12));
+  border: 1px solid rgba(16,185,129,0.25);
+  color: var(--success);
+}
+.flow-end-icon { background: var(--success); color: white; }
+
+/* Connector Arrows */
+.flow-connector {
+  display: flex; align-items: center; justify-content: center;
+  height: 32px; color: var(--border);
+  position: relative;
+}
+.flow-connector::before {
+  content: ''; position: absolute; left: 50%; top: 0; bottom: 0;
+  width: 2px; background: var(--border); transform: translateX(-50%);
+  z-index: -1;
+}
+
+/* Node Wrapper */
+.flow-node-wrapper { width: 100%; }
+
+/* Flow Node */
+.flow-node {
+  width: 100%; padding: 0; overflow: hidden;
+  cursor: pointer; transition: all 0.3s ease;
+  border-left: 3px solid var(--border);
+}
+.flow-node:hover { transform: translateX(4px); }
+.flow-active { border-left-color: var(--indigo); }
+.flow-completed { border-left-color: var(--success); opacity: 0.85; }
+.flow-locked { border-left-color: var(--text-muted); opacity: 0.6; }
+
+/* Node Header */
+.flow-node-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px;
+}
+.flow-node-num {
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+  border: 2px solid; display: flex; align-items: center; justify-content: center;
+  background: var(--bg-primary);
+}
+.flow-node-info { flex: 1; min-width: 0; }
+.flow-node-title {
+  font-size: 0.95rem; font-weight: 600; margin: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.flow-node-meta { display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+.flow-node-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+
+/* Progress Ring */
+.flow-progress-ring { width: 40px; height: 40px; position: relative; }
+.flow-progress-ring svg { width: 100%; height: 100%; }
+.flow-progress-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-size: 0.65rem; font-weight: 700;
+}
+
+/* Node Body (Expanded) */
+.flow-node-body {
+  padding: 0 20px 20px 70px;
+  display: flex; flex-direction: column; gap: 16px;
+  animation: fadeIn 0.3s ease;
+}
+.flow-reason { color: var(--text-secondary); font-size: 0.88rem; font-style: italic; margin: 0; }
+
+/* Prerequisites */
+.flow-prereqs h4, .flow-steps h4, .flow-resources h4 {
+  font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  display: flex; align-items: center; gap: 6px;
+}
+.flow-prereq-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* Steps */
+.flow-step-list { display: flex; flex-direction: column; gap: 8px; }
+.flow-step-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.88rem; color: var(--text-secondary);
+}
+.flow-step-dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  background: rgba(99,102,241,0.1); color: var(--indigo);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 700;
+}
+
+/* Resources */
+.flow-resources { display: flex; flex-direction: column; gap: 6px; }
+.resource-link {
+  display: flex; align-items: center; gap: 8px; padding: 10px 12px;
+  background: var(--bg-secondary); border: 1px solid var(--border);
+  border-radius: var(--radius-md); color: var(--text-primary);
+  text-decoration: none; font-size: 0.85rem; transition: all 0.2s;
+}
+.resource-link:hover { border-color: var(--teal); }
+
+/* Progress Control */
+.flow-progress-control {
+  display: flex; flex-direction: column; gap: 6px;
+  padding-top: 8px; border-top: 1px solid var(--border);
+}
+.flow-progress-slider { display: flex; align-items: center; gap: 12px; }
+.range-input {
+  flex: 1; appearance: none; height: 6px; background: var(--bg-secondary);
+  border-radius: 3px; outline: none;
+}
+.range-input::-webkit-slider-thumb {
+  appearance: none; width: 16px; height: 16px; border-radius: 50%;
+  background: var(--indigo); cursor: pointer;
+}
+.flow-complete-badge {
+  display: flex; align-items: center; gap: 6px;
+  color: var(--success); font-size: 0.85rem; font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .flow-node-body { padding: 0 16px 16px 16px; }
+  .flow-node-header { padding: 12px 16px; }
+  .roadmap-overview-stats { gap: 24px; }
+  .flow-node-title { font-size: 0.88rem; }
+}

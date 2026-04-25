@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  targetRole  String   @default("")
+  avatarColor String   @default("#6366f1")
+  createdAt   DateTime @default(now())
+
+  profile     Profile?
+  assessments Assessment[]
+}
+
+model Profile {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Resume data
+  resumeText     String @default("")
+  resumeFileName String @default("")
+  resumeSections Json   @default("{}")
+
+  // JD data
+  latestJD String @default("")
+  jdSkills Json   @default("{}")
+
+  // Skill profile — array of skill objects stored as JSON
+  skills Json @default("[]")
+
+  // Gap analysis
+  gapAnalysis      Json   @default("{}")
+  overallReadiness Int    @default(0)
+  strengths        Json   @default("[]")
+  gaps             Json   @default("[]")
+
+  // Learning plan — array of learning items
+  learningPlan Json @default("[]")
+
+  // Recent activity
+  recentActivity Json @default("[]")
+
+  lastUpdated DateTime @default(now()) @updatedAt
+}
+
+model Assessment {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status          String   @default("in_progress") // in_progress, completed, abandoned
+  skillsToAssess  Json     @default("[]")
+  currentSkillIndex Int    @default(0)
+  currentLevel    String   @default("beginner")
+  questions       Json     @default("[]")
+  finalScores     Json     @default("[]")
+  startedAt       DateTime @default(now())
+  completedAt     DateTime?
+}

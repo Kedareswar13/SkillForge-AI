@@ -1,0 +1,20 @@
+.assessment-flow { max-width: 700px; margin: 0 auto; }
+.assessment-progress { margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+.assessment-progress .progress-bar { flex: 1; }
+.question-card { display: flex; flex-direction: column; gap: 16px; }
+.question-meta { display: flex; gap: 8px; }
+.question-text { font-size: 1.1rem; line-height: 1.6; font-weight: 500; }
+.eval-card {
+  padding: 16px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); animation: fadeIn 0.4s ease;
+}
+.eval-good { background: rgba(16,185,129,0.08); border-color: rgba(16,185,129,0.3); }
+.eval-ok { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.3); }
+.eval-low { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.3); }
+.eval-score { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; color: var(--warning); }
+.eval-score span { margin-left: 8px; color: var(--text-primary); font-weight: 700; }
+.eval-card p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 4px; }
+.final-scores { display: flex; flex-direction: column; gap: 12px; margin: 16px 0; text-align: left; }
+.score-row { display: flex; align-items: center; gap: 12px; font-size: 0.9rem; }
+.score-row span:first-child { width: 120px; font-weight: 500; }
+.score-row .progress-bar { flex: 1; }
