@@ -4,7 +4,7 @@
   "description": "SkillForge AI - Backend API Gateway",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "npx prisma db push --accept-data-loss && node src/index.js",
     "dev": "nodemon src/index.js",
     "prisma:generate": "npx prisma generate",
     "prisma:migrate": "npx prisma migrate dev --name init",
