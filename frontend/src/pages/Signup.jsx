@@ -22,7 +22,9 @@ export default function Signup() {
       loginUser(data.token, data.user);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.response?.data?.error || err.response?.data?.errors?.[0]?.msg || 'Signup failed');
+      const respError = err.response?.data?.error;
+      const errorMessage = typeof respError === 'string' ? respError : (respError?.message || err.response?.data?.errors?.[0]?.msg || 'Signup failed');
+      setError(errorMessage);
     }
     setLoading(false);
   };
