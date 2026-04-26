@@ -124,6 +124,35 @@ This totally neutralizes memorization and cheating, determining absolute profici
 
 ---
 
+## 📝 Sample Inputs and Outputs
+
+To demonstrate the precision of the AI Engine, here is a realistic example of the data transformation during the extraction phase:
+
+### 📥 Sample Input (Resume Segment)
+```text
+Experience: 
+Software Engineer at TechCorp (2023 - Present)
+- Developed and deployed RESTful APIs using Node.js and Express.
+- Built dynamic frontends with React.js and managed state with Redux.
+- Containerized applications using Docker.
+
+Skills: Python, Java, C++, HTML, CSS, JavaScript, SQL, MongoDB.
+```
+
+### 📤 Sample Output (Skill Extractor JSON)
+```json
+{
+  "skills": [
+    { "name": "Node.js", "proficiency": "advanced", "confidence": 95, "evidence": "Developed and deployed RESTful APIs" },
+    { "name": "React.js", "proficiency": "advanced", "confidence": 90, "evidence": "Built dynamic frontends" },
+    { "name": "Docker", "proficiency": "intermediate", "confidence": 75, "evidence": "Containerized applications" },
+    { "name": "Python", "proficiency": "beginner", "confidence": 30, "evidence": "Listed in skills section" }
+  ]
+}
+```
+
+---
+
 ## 🚀 Local Setup Instructions
 
 You can run the entire application (Frontend, Backend, AI Server, and Database) with just one command.
