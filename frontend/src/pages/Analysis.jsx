@@ -50,7 +50,7 @@ export default function Analysis() {
   const data = result || (profile?.gapAnalysis?.matches?.length && hasSkills && hasJD ? {
     gapAnalysis: profile.gapAnalysis,
     overallReadiness: profileReadiness,
-    recommendations: []
+    recommendations: profile.gapAnalysis?.recommendations || []
   } : null);
 
   console.log("🔍 Analysis UI Render Data:", JSON.stringify(data, null, 2));

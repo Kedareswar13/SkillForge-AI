@@ -65,11 +65,17 @@ export default function Assessment() {
     setLoading(false);
   };
 
-  const handleSubmitAnswer = async () => {
-    if (!answer.trim()) return;
+  const handleSkip = () => {
+    // Submit a canned "I don't know" response
+    setAnswer("I don't know the answer to this question.");
+    // We need to wait for state to update, so we pass the string directly to a custom submit handler
+    submitAnswerDirectly("I don't know the answer to this question.");
+  };
+
+  const submitAnswerDirectly = async (answerText) => {
     setLoading(true); setEvaluation(null);
     try {
-      const { data } = await submitAnswer({ assessmentId, answer });
+      const { data } = await submitAnswer({ assessmentId, answer: answerText });
       setEvaluation(data.evaluation);
       if (data.isComplete) {
         setFinalScores(data.finalScores || []);
@@ -85,6 +91,11 @@ export default function Assessment() {
       setError(err.response?.data?.error || 'Failed to submit answer');
     }
     setLoading(false);
+  };
+
+  const handleSubmitAnswer = async () => {
+    if (!answer.trim()) return;
+    submitAnswerDirectly(answer);
   };
 
   if (phase === 'loading') {
@@ -153,9 +164,14 @@ export default function Assessment() {
             {!evaluation && (
               <>
                 <textarea className="input" value={answer} onChange={e => setAnswer(e.target.value)} placeholder="Type your answer here..." rows={5} />
-                <button className="btn btn-primary" onClick={handleSubmitAnswer} disabled={loading || !answer.trim()} style={{width:'100%'}}>
-                  {loading ? <><div className="spinner" style={{width:20,height:20,borderWidth:2}}></div> Evaluating...</> : <><Send size={18}/> Submit Answer</>}
-                </button>
+                <div style={{display: 'flex', gap: '12px'}}>
+                  <button className="btn btn-secondary" onClick={handleSkip} disabled={loading} style={{flex: 1}}>
+                    Skip Question
+                  </button>
+                  <button className="btn btn-primary" onClick={handleSubmitAnswer} disabled={loading || !answer.trim()} style={{flex: 2}}>
+                    {loading ? <><div className="spinner" style={{width:20,height:20,borderWidth:2}}></div> Evaluating...</> : <><Send size={18}/> Submit Answer</>}
+                  </button>
+                </div>
               </>
             )}
           </div>

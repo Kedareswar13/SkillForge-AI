@@ -66,11 +66,36 @@ router.put('/:index/progress', auth, async (req, res) => {
     const plan = Array.isArray(profile?.learningPlan) ? [...profile.learningPlan] : [];
     if (!plan[index]) return res.status(404).json({ error: 'Learning plan item not found' });
 
+    const wasCompleted = plan[index].completed;
     plan[index].progress = progress;
     plan[index].completed = progress >= 100;
 
-    await prisma.profile.update({ where: { userId: req.userId }, data: { learningPlan: plan } });
-    res.json({ learningPlan: plan });
+    let newReadiness = profile.overallReadiness || 0;
+    let updatedSkills = Array.isArray(profile.skills) ? [...profile.skills] : [];
+    
+    if (!wasCompleted && plan[index].completed) {
+      const bump = Math.max(2, Math.round((100 - newReadiness) / plan.length));
+      newReadiness = Math.min(100, newReadiness + bump);
+      
+      // Upgrade global profile skill
+      const skillIndex = updatedSkills.findIndex(s => s.name.toLowerCase() === plan[index].skill.toLowerCase());
+      if (skillIndex >= 0) {
+        updatedSkills[skillIndex].level = plan[index].targetLevel;
+        updatedSkills[skillIndex].confidence = 100;
+      } else {
+        updatedSkills.push({ name: plan[index].skill, level: plan[index].targetLevel, confidence: 100 });
+      }
+    }
+
+    await prisma.profile.update({ 
+      where: { userId: req.userId }, 
+      data: { 
+        learningPlan: plan,
+        overallReadiness: newReadiness,
+        skills: updatedSkills
+      } 
+    });
+    res.json({ learningPlan: plan, overallReadiness: newReadiness });
   } catch (error) {
     res.status(500).json({ error: 'Failed to update progress' });
   }
@@ -132,6 +157,8 @@ router.post('/:index/validate/answer', auth, async (req, res) => {
     
     // If score is good (>= 3 out of 5), mark resource or skill as complete
     if (score >= 3) {
+      const wasCompleted = item.completed;
+      
       if (resourceIndex !== undefined && item.resources && item.resources[resourceIndex]) {
         plan[index].resources[resourceIndex].completed = true;
         
@@ -150,14 +177,33 @@ router.post('/:index/validate/answer', auth, async (req, res) => {
         plan[index].completed = true;
       }
       
+      let newReadiness = profile.overallReadiness || 0;
+      let updatedSkills = Array.isArray(profile.skills) ? [...profile.skills] : [];
+
+      if (!wasCompleted && plan[index].completed) {
+        const bump = Math.max(2, Math.round((100 - newReadiness) / plan.length));
+        newReadiness = Math.min(100, newReadiness + bump);
+        
+        // Upgrade global profile skill
+        const skillIndex = updatedSkills.findIndex(s => s.name.toLowerCase() === plan[index].skill.toLowerCase());
+        if (skillIndex >= 0) {
+          updatedSkills[skillIndex].level = plan[index].targetLevel;
+          updatedSkills[skillIndex].confidence = 100;
+        } else {
+          updatedSkills.push({ name: plan[index].skill, level: plan[index].targetLevel, confidence: 100 });
+        }
+      }
+      
       const currentActivity = Array.isArray(profile.recentActivity) ? profile.recentActivity : [];
       await prisma.profile.update({
         where: { userId: req.userId },
         data: {
           learningPlan: plan,
+          overallReadiness: newReadiness,
+          skills: updatedSkills,
           recentActivity: [...currentActivity, { 
             type: 'assessment_completed', 
-            description: `Validated knowledge for: ${item.skill}`, 
+            description: `Validated knowledge for: ${item.skill} (Advanced to ${item.targetLevel})`, 
             timestamp: new Date().toISOString() 
           }]
         }

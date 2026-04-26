@@ -5,19 +5,7 @@
 .readiness-pct {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
   font-size: 1.6rem; font-weight: 800;
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-/* Fallback: if gradient text doesn't render, show solid color */
-@supports not (background-clip: text) {
-  .readiness-pct {
-    background: none;
-    -webkit-text-fill-color: unset;
-    color: var(--indigo);
-  }
+  color: #818cf8;
 }
 .gap-sections { margin-bottom: 24px; }
 .gap-section h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.95rem; }
