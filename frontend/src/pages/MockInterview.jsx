@@ -34,9 +34,21 @@ export default function MockInterview() {
       const { data } = await evaluateMockAnswer({
         question: q.question, answer, skill: q.skill, level: q.difficulty
       });
-      setEvaluations(prev => [...prev, { ...data, question: q.question, userAnswer: answer }]);
+      const newEvaluation = { ...data, question: q.question, userAnswer: answer };
+      const newEvaluationsList = [...evaluations, newEvaluation];
+      setEvaluations(newEvaluationsList);
       setAnswer('');
-      if (currentQ + 1 >= questions.length) setPhase('done');
+      if (currentQ + 1 >= questions.length) {
+        const finalAvgScore = (newEvaluationsList.reduce((s, e) => s + (e.score || 0), 0) / newEvaluationsList.length).toFixed(1);
+        try {
+          // Import saveMockInterview dynamically if not already imported at top
+          const { saveMockInterview } = await import('../api');
+          await saveMockInterview({ type, avgScore: parseFloat(finalAvgScore), evaluations: newEvaluationsList });
+        } catch (e) {
+          console.error("Failed to save mock interview:", e);
+        }
+        setPhase('done');
+      }
       else setCurrentQ(prev => prev + 1);
     } catch (err) {
       setError(err.response?.data?.error || 'Evaluation failed');

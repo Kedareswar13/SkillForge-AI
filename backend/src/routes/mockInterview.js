@@ -51,4 +51,36 @@ router.post('/evaluate', auth, async (req, res) => {
   }
 });
 
+// POST /api/mock-interview/save
+router.post('/save', auth, async (req, res) => {
+  try {
+    const { type, avgScore, evaluations } = req.body;
+    const profile = await prisma.profile.findUnique({ where: { userId: req.userId } });
+    if (!profile) return res.status(400).json({ error: 'Profile not found' });
+
+    const currentHistory = Array.isArray(profile.mockInterviews) ? profile.mockInterviews : [];
+    const currentActivity = Array.isArray(profile.recentActivity) ? profile.recentActivity : [];
+
+    const newInterview = {
+      type,
+      avgScore,
+      questionsCount: evaluations.length,
+      date: new Date().toISOString()
+    };
+
+    await prisma.profile.update({
+      where: { userId: req.userId },
+      data: {
+        mockInterviews: [newInterview, ...currentHistory],
+        recentActivity: [{ type: 'mock_interview', description: `Completed ${type} mock interview with avg score ${avgScore}/5`, timestamp: new Date().toISOString() }, ...currentActivity]
+      }
+    });
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Save mock interview error:', error.message);
+    res.status(500).json({ error: 'Failed to save mock interview results' });
+  }
+});
+
 module.exports = router;

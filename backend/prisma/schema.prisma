@@ -49,6 +49,9 @@ model Profile {
   // Recent activity
   recentActivity Json @default("[]")
 
+  // Mock interview history
+  mockInterviews Json @default("[]")
+
   lastUpdated DateTime @default(now()) @updatedAt
 }
 

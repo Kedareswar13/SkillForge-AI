@@ -146,6 +146,30 @@ export default function ProfilePage() {
             </div>
           )}
 
+          {/* Mock Interview History */}
+          {profile?.mockInterviews?.length > 0 && (
+            <div className="glass-card">
+              <h3><Swords size={16}/> Mock Interview History</h3>
+              <div className="mock-interview-history" style={{marginTop:12, display:'flex', flexDirection:'column', gap:8}}>
+                {profile.mockInterviews.map((mi, i) => (
+                  <div key={i} className="profile-activity-item" style={{display:'flex', justifyContent:'space-between', alignItems:'center', padding:'12px', background:'var(--surface-light)', borderRadius:'8px', border:'1px solid var(--border)'}}>
+                    <div>
+                      <div style={{display:'flex', alignItems:'center', gap:8}}>
+                        <span style={{fontWeight:600, textTransform:'capitalize'}}>{mi.type.replace('_', ' ')}</span>
+                        <span className="badge badge-indigo" style={{fontSize:'0.7rem'}}>{mi.questionsCount} Qs</span>
+                      </div>
+                      <span className="text-muted" style={{fontSize:'0.75rem'}}>{new Date(mi.date).toLocaleString()}</span>
+                    </div>
+                    <div style={{display:'flex', alignItems:'center', gap:4}}>
+                      <Star size={16} fill="var(--warning)" color="var(--warning)"/>
+                      <span style={{fontWeight:700, fontSize:'1.1rem'}}>{mi.avgScore}</span><span className="text-muted">/5</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {profile?.gaps?.length > 0 && (
             <div className="glass-card">
               <h3><Target size={16}/> Skill Gaps</h3>

@@ -50,5 +50,6 @@ export const submitValidationAnswer = (index, data) => API.post(`/learning-plan/
 // Mock Interview
 export const startMockInterview = (data) => API.post('/mock-interview/start', data);
 export const evaluateMockAnswer = (data) => API.post('/mock-interview/evaluate', data);
+export const saveMockInterview = (data) => API.post('/mock-interview/save', data);
 
 export default API;
