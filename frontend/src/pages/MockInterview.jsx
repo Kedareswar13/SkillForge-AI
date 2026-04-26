@@ -5,6 +5,7 @@ import { Swords, Play, Send, Star, ChevronRight, RefreshCw } from 'lucide-react'
 import './MockInterview.css';
 
 export default function MockInterview() {
+  const { refreshProfile } = useAuth();
   const [phase, setPhase] = useState('setup'); // setup, interview, done
   const [type, setType] = useState('jd_based');
   const [questions, setQuestions] = useState([]);
@@ -44,6 +45,7 @@ export default function MockInterview() {
           // Import saveMockInterview dynamically if not already imported at top
           const { saveMockInterview } = await import('../api');
           await saveMockInterview({ type, avgScore: parseFloat(finalAvgScore), evaluations: newEvaluationsList });
+          await refreshProfile(); // Refresh profile state immediately
         } catch (e) {
           console.error("Failed to save mock interview:", e);
         }
