@@ -3,7 +3,7 @@
 # ⚡ SkillForge AI
 ### AI-Powered Skill Assessment & Personalised Learning Agent
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_App-6366f1?style=for-the-badge)](https://skillforge-ai.onrender.com)
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Visit_App-6366f1?style=for-the-badge)](https://skill-forge-ai-three.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-06b6d4?style=for-the-badge)](LICENSE)
 
 *A resume tells you what someone claims to know — not how well they actually know it. SkillForge proves it.*
