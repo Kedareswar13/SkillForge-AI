@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { startMockInterview, evaluateMockAnswer } from '../api';
-import { Swords, Play, Send, Star, ChevronRight, RefreshCw } from 'lucide-react';
+import { Swords, Play, Send, Star, ChevronRight, RefreshCw, Clock } from 'lucide-react';
 import './MockInterview.css';
 
 export default function MockInterview() {
-  const { refreshProfile } = useAuth();
+  const { refreshProfile, profile } = useAuth();
   const [phase, setPhase] = useState('setup'); // setup, interview, done
   const [type, setType] = useState('jd_based');
   const [questions, setQuestions] = useState([]);
@@ -122,6 +122,32 @@ export default function MockInterview() {
               {ev.improvements?.length > 0 && <p className="text-sm" style={{color:'var(--warning)',marginTop:4}}>💡 {ev.improvements.join('. ')}</p>}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Past Interview Results */}
+      {phase === 'setup' && profile?.mockInterviews?.length > 0 && (
+        <div className="animate-slide" style={{maxWidth:600,margin:'24px auto 0'}}>
+          <div className="glass-card">
+            <h3 style={{display:'flex',alignItems:'center',gap:8}}><Clock size={16}/> Past Interview Results</h3>
+            <div style={{display:'flex',flexDirection:'column',gap:8,marginTop:12}}>
+              {profile.mockInterviews.map((mi, i) => (
+                <div key={i} style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'12px 16px',background:'var(--surface-light)',borderRadius:'8px',border:'1px solid var(--border)'}}>
+                  <div>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      <span style={{fontWeight:600,textTransform:'capitalize'}}>{mi.type.replace(/_/g, ' ')}</span>
+                      <span className="badge badge-indigo" style={{fontSize:'0.7rem'}}>{mi.questionsCount} Qs</span>
+                    </div>
+                    <span className="text-muted" style={{fontSize:'0.75rem'}}>{new Date(mi.date).toLocaleString()}</span>
+                  </div>
+                  <div style={{display:'flex',alignItems:'center',gap:4}}>
+                    <Star size={16} fill="var(--warning)" color="var(--warning)"/>
+                    <span style={{fontWeight:700,fontSize:'1.1rem'}}>{mi.avgScore}</span><span className="text-muted">/5</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

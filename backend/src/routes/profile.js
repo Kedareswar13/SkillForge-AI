@@ -26,6 +26,7 @@ router.get('/', auth, async (req, res) => {
     });
 
     const recentActivity = Array.isArray(profile.recentActivity) ? profile.recentActivity : [];
+    const mockInterviews = Array.isArray(profile.mockInterviews) ? profile.mockInterviews : [];
 
     res.json({
       user: { id: user.id, name: user.name, email: user.email, targetRole: user.targetRole, avatarColor: user.avatarColor },
@@ -39,7 +40,8 @@ router.get('/', auth, async (req, res) => {
         strengths: profile.strengths,
         gaps: profile.gaps,
         learningPlan: profile.learningPlan,
-        recentActivity: recentActivity.slice(-10).reverse(),
+        mockInterviews: mockInterviews,
+        recentActivity: recentActivity.slice(0, 10),
         lastUpdated: profile.lastUpdated,
         // Include assessment scores
         latestAssessment: latestAssessment ? {

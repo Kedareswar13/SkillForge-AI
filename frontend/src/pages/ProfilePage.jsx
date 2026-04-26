@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
-import { User, Target, Award, TrendingUp, BookOpen, FileText, Brain, Eye, X, Download, Star, Clock } from 'lucide-react';
+import { User, Target, Award, TrendingUp, BookOpen, FileText, Brain, Eye, X, Download, Star, Clock, Swords } from 'lucide-react';
 import './ProfilePage.css';
 
 export default function ProfilePage() {

@@ -37,7 +37,7 @@ export default function Dashboard() {
     { label: 'Run Analysis', path: '/analysis', icon: TrendingUp, done: profile?.gapAnalysis?.matches?.length > 0 },
     { label: 'Take Assessment', path: '/assessment', icon: Brain, done: hasAssessment },
     { label: 'View Roadmap', path: '/roadmap', icon: Map, done: profile?.learningPlan?.length > 0 },
-    { label: 'Mock Interview', path: '/mock-interview', icon: Swords, done: false },
+    { label: 'Mock Interview', path: '/mock-interview', icon: Swords, done: profile?.mockInterviews?.length > 0 },
   ];
 
   const nextStep = steps.find(s => !s.done);
