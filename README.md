@@ -25,8 +25,20 @@
 
 ## 🎯 What is SkillForge AI?
 
-SkillForge AI is an intelligent platform built for the **Deccan AI Catalyst Hackathon 2026**. 
-Instead of just matching keywords, it takes a candidate's Resume and a Job Description, conducts an adaptive conversational AI interview to test their *actual* knowledge, and generates a step-by-step personalized learning roadmap to fill in the gaps.
+SkillForge AI is a cutting-edge, intelligent platform built for the **Deccan AI Catalyst Hackathon 2026**. 
+It re-imagines the modern recruitment and upskilling pipeline by shifting the focus from *what a candidate claims to know* to *what they can actually prove*.
+
+### 🚨 The Problem
+Traditional hiring heavily relies on automated Applicant Tracking Systems (ATS) that simply scan resumes for keywords. This leads to two massive issues:
+1. **Keyword Stuffing:** Candidates often list skills they barely know just to pass the ATS filter, leading to wasted time in technical interviews.
+2. **False Negatives:** Highly capable candidates might be rejected simply because they didn't format their resume correctly or missed a specific synonym for a skill.
+Furthermore, once a gap in knowledge is identified, candidates are left to figure out how to bridge that gap entirely on their own.
+
+### 💡 The SkillForge Solution
+SkillForge bridges the gap between hiring requirements and candidate readiness through a unified AI-driven workflow. Instead of just matching keywords, it:
+- **Analyzes Context:** Parses a candidate's Resume and a target Job Description (JD) to extract skills, evaluating the *evidence* behind them rather than just their presence.
+- **Validates Proficiency:** Conducts an adaptive, conversational AI interview—a mock technical assessment—that dynamically adjusts the difficulty based on the user's responses. This effectively neutralizes memorization and accurately identifies the true depth of their knowledge.
+- **Bridges the Gap:** Generates a hyper-personalized, step-by-step learning roadmap tailored to the exact deficiencies found during the assessment, equipping candidates with the curated resources they need to become job-ready.
 
 ### ✨ Key Features
 1. **📄 Smart Resume Parsing:** Extracts skills and looks for real evidence (e.g., used in projects vs. just listed).
