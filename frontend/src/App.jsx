@@ -12,6 +12,7 @@ import Results from './pages/Results';
 import LearningRoadmap from './pages/LearningRoadmap';
 import ProfilePage from './pages/ProfilePage';
 import MockInterview from './pages/MockInterview';
+import Footer from './components/Footer';
 import './index.css';
 
 function ProtectedRoute({ children }) {
@@ -23,25 +24,38 @@ function ProtectedRoute({ children }) {
 
 function AppRoutes() {
   const { user, loading } = useAuth();
-  if (loading) return <div className="loading-screen"><div className="spinner"></div></div>;
+  
+  if (loading) {
+    return (
+      <>
+        <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <div className="loading-screen" style={{ flex: 1 }}><div className="spinner"></div></div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
       {user && <Navbar />}
-      <Routes>
-        <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
-        <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path="/resume" element={<ProtectedRoute><ResumeUpload /></ProtectedRoute>} />
-        <Route path="/jd" element={<ProtectedRoute><JDInput /></ProtectedRoute>} />
-        <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
-        <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
-        <Route path="/results" element={<ProtectedRoute><Results /></ProtectedRoute>} />
-        <Route path="/roadmap" element={<ProtectedRoute><LearningRoadmap /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-        <Route path="/mock-interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
-        <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
-      </Routes>
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+        <Routes>
+          <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <Login />} />
+          <Route path="/signup" element={user ? <Navigate to="/dashboard" /> : <Signup />} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/resume" element={<ProtectedRoute><ResumeUpload /></ProtectedRoute>} />
+          <Route path="/jd" element={<ProtectedRoute><JDInput /></ProtectedRoute>} />
+          <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
+          <Route path="/assessment" element={<ProtectedRoute><Assessment /></ProtectedRoute>} />
+          <Route path="/results" element={<ProtectedRoute><Results /></ProtectedRoute>} />
+          <Route path="/roadmap" element={<ProtectedRoute><LearningRoadmap /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+          <Route path="/mock-interview" element={<ProtectedRoute><MockInterview /></ProtectedRoute>} />
+          <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+        </Routes>
+      </main>
+      <Footer />
     </>
   );
 }
